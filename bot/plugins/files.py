@@ -44,7 +44,7 @@ async def user_file_handler(event: NewMessage.Event | Message):
     deep_link = f'https://t.me/{Telegram.BOT_USERNAME}?start=file_{message_id}_{secret_code}'
 
     if (event.document and 'video' in event.document.mime_type) or event.video:
-        stream_link = f'{Server.BASE_URL}/stream/{message_id}?code={secret_code}'
+        stream_link = f'{Server.BASE_URL}/stream/{message_id}/event.document.file_name?code={secret_code}'
         await event.reply(
             message= MediaLinksText % {'dl_link': dl_link, 'tg_link': tg_link, 'tg_link': tg_link, 'stream_link': stream_link},
             buttons=[
