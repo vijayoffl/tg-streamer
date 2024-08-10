@@ -8,6 +8,13 @@ from bot.config import Telegram, Server
 from bot.modules.decorators import verify_user
 from bot.modules.telegram import send_message, filter_files
 from bot.modules.static import *
+import logging
+
+
+# Set up logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
 
 @TelegramBot.on(NewMessage(incoming=True, func=filter_files))
 @verify_user(private=True)
