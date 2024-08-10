@@ -75,7 +75,8 @@ async def user_file_handler(event: NewMessage.Event | Message):
 @TelegramBot.on(NewMessage(incoming=True, func=filter_files, forwards=False))
 @verify_user()
 async def channel_file_handler(event: NewMessage.Event | Message):
-    secret_code = token_hex(Telegram.SECRET_CODE_LENGTH)
+    #secret_code = token_hex(Telegram.SECRET_CODE_LENGTH)
+    secret_code = token_hex(12)
     event.message.text = f"`{secret_code}`"
     message = await send_message(event.message)
     message_id = message.id
