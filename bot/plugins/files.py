@@ -12,10 +12,24 @@ from bot.modules.static import *
 @TelegramBot.on(NewMessage(incoming=True, func=filter_files))
 @verify_user(private=True)
 async def user_file_handler(event: NewMessage.Event | Message):
-    secret_code = token_hex(Telegram.SECRET_CODE_LENGTH)
-    event.message.text = f'`{secret_code}`'
-    message = await send_message(event.message)
-    message_id = message.id
+    try:
+        # Generate a secret code
+        secret_code = token_hex(Telegram.SECRET_CODE_LENGTH)
+        logger.info(f'Generated secret code: {secret_code}')
+        
+        # Update message text
+        event.message.text = f'`{secret_code}`'
+        
+        # Send message
+        message = await send_message(event.message)
+        message_id = message.id
+        
+        # Log message ID
+        logger.info(f'Message sent successfully with ID: {message_id}')
+    
+    except Exception as e:
+        # Log any errors
+        logger.error(f'Error in user_file_handler: {e}', exc_info=True)
 
     dl_link = f'{Server.BASE_URL}/dl/{message_id}?code={secret_code}'
     tg_link = f'{Server.BASE_URL}/file/{message_id}?code={secret_code}'
