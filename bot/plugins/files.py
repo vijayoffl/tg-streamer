@@ -21,8 +21,8 @@ logger = logging.getLogger(__name__)
 async def user_file_handler(event: NewMessage.Event | Message):
     try:
         # Generate a secret code
-        #secret_code = token_hex(Telegram.SECRET_CODE_LENGTH)
-        secret_code = token_hex(12)
+        secret_code = token_hex(Telegram.SECRET_CODE_LENGTH)
+        
         logger.info(f'Generated secret code: {secret_code}')
         
         # Update message text
@@ -75,8 +75,8 @@ async def user_file_handler(event: NewMessage.Event | Message):
 @TelegramBot.on(NewMessage(incoming=True, func=filter_files, forwards=False))
 @verify_user()
 async def channel_file_handler(event: NewMessage.Event | Message):
-    #secret_code = token_hex(Telegram.SECRET_CODE_LENGTH)
-    secret_code = token_hex(12)
+    secret_code = token_hex(Telegram.SECRET_CODE_LENGTH)
+   
     event.message.text = f"`{secret_code}`"
     message = await send_message(event.message)
     message_id = message.id
